@@ -1,7 +1,7 @@
 XInputSimulator
 ===============
 
-Cross (X) Plattform (Linux/Mac/Win) Simulator for input devices to simulate mouse moves/clicks/scrolls or keyboard keystrokes.  
+Cross (X) Platform (Linux/macOS/Win) Simulator for input devices to simulate mouse moves/clicks/scrolls or keyboard keystrokes.  
 
 [![Build Status](https://travis-ci.org/pythoneer/XInputSimulator.svg?branch=master)](https://travis-ci.org/pythoneer/XInputSimulator)
   
@@ -19,7 +19,7 @@ For a detailed example see main.cpp
 ```
   
 building for Linux use -lX11 -lXtst  
-building for Mac use -framework ApplicationServices Carbon CoreFoundation  
+building for macOS use -framework ApplicationServices Carbon CoreFoundation  
 building for Win use User32.lib  
 
 for cmake there is a CMakeLists.txt file -simply type (for all platforms):
@@ -38,7 +38,7 @@ for xcode you can generate a project by
 ```
 
 ####Status early Alpha
-2013-07-16: Linux, Mac and Win part with following functions
+2013-07-16: Linux, macOS and Win part with following functions
 ```cpp
 mouseMoveTo  
 mouseMoveRelative  
