@@ -26,7 +26,7 @@ for cmake there is a CMakeLists.txt file -simply type (for all platforms):
 ```
 >$ mkdir build
 >$ cd build
->$ cmake ../XInputSimulator/
+>$ cmake ../src/
 >$ cmake --build .
 ```
 
@@ -34,7 +34,7 @@ for xcode you can generate a project by
 ```
 >$ mkdir build
 >$ cd build
->$ cmake -G Xcode ../XInputSimulator/
+>$ cmake -G Xcode ../src/
 ```
 
 ####Status early Alpha
