@@ -9,7 +9,7 @@ TARGET = XInputSimulatorMain
 SOURCES += main.cpp \
     xinputsimulatorimpl.cpp \
     xinputsimulator.cpp \
-    xinputsimulatorimpllinux.cpp \
+    xinputsimulatorimplunix.cpp \
     notimplementedexception.cpp \
     xinputsimulatorimplmacos.cpp \
     xinputsimulatorimplwin.cpp
@@ -17,7 +17,7 @@ SOURCES += main.cpp \
 HEADERS += \
     xinputsimulator.h \
     xinputsimulatorimpl.h \
-    xinputsimulatorimpllinux.h \
+    xinputsimulatorimplunix.h \
     notimplementedexception.h \
     xinputsimulatorimplmacos.h \
     xinputsimulatorimplwin.h
@@ -27,7 +27,7 @@ macx {
     LIBS += -framework ApplicationServices
 }
 unix:!macx{
-# linux only
+# unix only
     LIBS += -lX11 -lXtst
 }
 win32 {

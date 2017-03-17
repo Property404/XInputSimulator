@@ -18,7 +18,7 @@
 #include <iostream>
 #include "xinputsimulator.h"
 
-#ifdef __linux__
+#ifdef __unix__
 //sleep
 #include <unistd.h>
 #elif __APPLE__
@@ -32,8 +32,17 @@
 using namespace std;
 
 void waitABit();
+void showOff();
+void displayHelp();
 
-int main()
+int main(int argc, char** argv){
+	showOff();
+	return 0;
+}
+void displayHelp(){
+	cout << "This is a help message(it's very helpful)\n";
+}
+void showOff()
 {
     cout << "Hello World!" << endl;
 
@@ -60,7 +69,7 @@ int main()
     waitABit();
     sim.mouseScrollX(-10);
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__unix__) || defined(__APPLE__)
 	char anA = 'a';
     cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << endl;
     std::cout << std::endl;
@@ -75,13 +84,12 @@ int main()
 
 
     waitABit();
-    return 0;
 }
 
 void waitABit()
 {
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-#ifdef __linux__
+#ifdef __unix__
 	sleep(1);
 #elif __APPLE__
 	sleep(1);

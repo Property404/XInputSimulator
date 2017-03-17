@@ -15,11 +15,11 @@
 //    You should have received a copy of the GNU Lesser Public License
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifdef __linux__
+#ifdef __unix__
 
 #include <unistd.h> //usleep
 
-#include "xinputsimulatorimpllinux.h"
+#include "xinputsimulatorimplunix.h"
 #include "notimplementedexception.h"
 #include <iostream>
 
@@ -157,7 +157,6 @@ void XInputSimulatorImplLinux::keyUp(int key)
 
 void XInputSimulatorImplLinux::keyClick(int key)
 {
-    std::cout << "key click: " << key << std::endl;
 
     this->keyDown(key);
     this->keyUp(key);
@@ -165,25 +164,19 @@ void XInputSimulatorImplLinux::keyClick(int key)
 
 int XInputSimulatorImplLinux::charToKeyCode(char key_char)
 {
-    std::cout << "cchar: " << (int)key_char << std::endl;
 
     int keyCode = XKeysymToKeycode(display, key_char);
 //    int keyCode = XKeysymToKeycode(display, XStringToKeysym(&key_char));
-    std::cout << "ccode: " << keyCode << std::endl;
 
     return keyCode;
 }
 void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
 {
-    std::cout << "key seq: " << sequence << std::endl;
 
     for(const char c : sequence) {
-        std::cout << "cahr: " << c << std::endl;
         int keyCode = this->charToKeyCode(c);
-        std::cout << "key code: " << keyCode << std::endl;
 
         if (isupper(c)) {
-            std::cout << "upper " << c << std::endl;
 
             this->keyDown(XKeysymToKeycode(display, XK_Shift_L));
             this->keyClick(keyCode);
@@ -200,4 +193,4 @@ void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
 }
 
 
-#endif // linux
+#endif // unix

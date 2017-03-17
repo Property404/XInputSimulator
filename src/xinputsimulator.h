@@ -23,8 +23,8 @@
 #include "xinputsimulatorimpl.h"
 #include "notimplementedexception.h"
 
-#ifdef __linux__
-#include "xinputsimulatorimpllinux.h"
+#ifdef __unix__
+#include "xinputsimulatorimplunix.h"
 #elif __APPLE__
 #include "xinputsimulatorimplmacos.h"
 #elif _WIN32
@@ -50,7 +50,7 @@ public:
     {
         static XInputSimulator instance;
 
-#ifdef __linux__
+#ifdef __unix__
         instance.implementation = new XInputSimulatorImplLinux;
 #elif __APPLE__
         instance.implementation = new XInputSimulatorImplMacOs;

@@ -65,8 +65,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xinputsimulatorimpllinux.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.cpp">
+      <file leaf-file-name="xinputsimulatorimplunix.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -87,8 +87,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xinputsimulatorimpllinux.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.h">
+      <file leaf-file-name="xinputsimulatorimplunix.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -301,7 +301,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.cpp">
+    <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -319,7 +319,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.h">
+    <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -381,7 +381,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.cpp">
+    <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -425,7 +425,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.cpp">
+    <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -465,7 +465,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xinputsimulatorimpllinux.h">
+    <entry file="file://$PROJECT_DIR$/xinputsimulatorimplunix.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />

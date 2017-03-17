@@ -15,10 +15,10 @@
 //    You should have received a copy of the GNU Lesser Public License
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifdef __linux__
+#ifdef __unix__
 
-#ifndef XINPUTSIMULATORIMPLLINUX_H
-#define XINPUTSIMULATORIMPLLINUX_H
+#ifndef XINPUTSIMULATORIMPLUNIX_H
+#define XINPUTSIMULATORIMPLUNIX_H
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -62,6 +62,6 @@ public:
 
 };
 
-#endif // XINPUTSIMULATORIMPLLINUX_H
+#endif // XINPUTSIMULATORIMPLUNIX_H
 
-#endif // linux
+#endif // unix
