@@ -24,7 +24,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreGraphics/CoreGraphics.h>
 #include <Carbon/Carbon.h> /* For kVK_ constants, and TIS functions. */
-
+#include <map>
 #include "xinputsimulatorimpl.h"
 
 class XInputSimulatorImplMacOs : public XInputSimulatorImpl
@@ -38,6 +38,7 @@ private:
 
     void initCurrentMousePosition();
     CFStringRef createStringForKey(CGKeyCode keyCode);
+    void keyClickShift(int key);
 
 public:
     XInputSimulatorImplMacOs();

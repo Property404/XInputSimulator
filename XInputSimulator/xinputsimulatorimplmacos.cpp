@@ -27,13 +27,12 @@
 #include "notimplementedexception.h"
 
 //#include <QDebug>
-
+#include <map>
 
 XInputSimulatorImplMacOs::XInputSimulatorImplMacOs()
 {
     //TODO
     //this->initCurrentMousePosition();
-    std::cout << "constructor " << std::endl;
     this->currentX = 500;
     this->currentY = 500;
 
@@ -63,7 +62,6 @@ void XInputSimulatorImplMacOs::mouseMoveTo(int x, int y)
                 CGPointMake(x, y),
                 kCGMouseButtonLeft);
 
-    std::cout << "mv: " << mouseEv << std::endl;
 
     CGEventPost(kCGHIDEventTap, mouseEv);
 
@@ -84,7 +82,6 @@ void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y)
         return;
     }
 
-    std::cout << "newx: " << newX << " newy: " << newY << std::endl;
 
     CGEventRef mouseEv = CGEventCreateMouseEvent(
                 NULL, kCGEventMouseMoved,
@@ -132,7 +129,7 @@ void XInputSimulatorImplMacOs::mouseClick(int button)
     this->mouseDown(button);
     this->mouseUp(button);
 }
-//kajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjf
+
 void XInputSimulatorImplMacOs::mouseScrollX(int length)
 {
     int scrollDirection = -1; // 1 left -1 right
@@ -146,7 +143,6 @@ void XInputSimulatorImplMacOs::mouseScrollX(int length)
 
     for(int cnt = 0; cnt < length; cnt++){
 
-        std::cout << "scroll y mac" << std::endl;
 
         CGEventRef scrollEv = CGEventCreateScrollWheelEvent (
                     NULL, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
@@ -174,7 +170,6 @@ void XInputSimulatorImplMacOs::mouseScrollY(int length)
 
     for(int cnt = 0; cnt < length; cnt++){
 
-        std::cout << "scroll y mac" << std::endl;
 
         CGEventRef scrollEv = CGEventCreateScrollWheelEvent (
                     NULL, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
@@ -204,12 +199,21 @@ void XInputSimulatorImplMacOs::keyUp(int key)
     CFRelease(commandUp);
 }
 
+
 void XInputSimulatorImplMacOs::keyClick(int key)
 {
-    std::cout << "key click: " << key << std::endl;
     
     this->keyDown(key);
     this->keyUp(key);
+}
+void XInputSimulatorImplMacOs::keyClickShift(int key)
+{
+	CGEventRef event1;
+	event1 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)key, true);
+	CGEventSetFlags(event1, kCGEventFlagMaskShift);
+	CGEventPost(kCGAnnotatedSessionEventTap, event1);
+	CFRelease(event1);
+	this->keyUp(key);
 }
 
 CFStringRef XInputSimulatorImplMacOs::createStringForKey(CGKeyCode keyCode)
@@ -241,55 +245,31 @@ CFStringRef XInputSimulatorImplMacOs::createStringForKey(CGKeyCode keyCode)
     
     return NULL;
 }
-
+const std::map<char,int> sequence_map =
+ {{'a',0x00},{'s',0x01},{'d',0x02},{'f',0x03},{'h',0x04},{'g',0x05},{'z',0x06},{'x',0x07},{'c',0x08},
+{'v',0x09},{'b',0x0b},{'q',0x0c},{'w',0x0d},{'e',0x0e},{'r',0x0f},{'y',0x10},{'t',0x11},{'1',0x12},{'2',0x13},
+{'3',0x14},{'4',0x15},{'6',0x16},{'5',0x17},{'=',0x18},{'9',0x19},{'7',0x1a},{'-',0x1b},{'8',0x1c},{'0',0x1d},
+{']',0x1e},{'o',0x1f},{'u',0x20},{'[',0x21},{'i',0x22},{'p',0x23},{'l',0x25},{'j',0x26},{'\'',0x27},{'k',0x28},
+{';',0x29},{'\\',0x2a},{',',0x2b},{'/',0x2c},{'n',0x2d},{'m',0x2e},{'.',0x2f},{'`',0x32}, {' ',0x31}, {'\n',0x24}};
 int XInputSimulatorImplMacOs::charToKeyCode(char key_char)
 {
-    static CFMutableDictionaryRef charToCodeDict = NULL;
-    CGKeyCode code;
-    UniChar character = key_char;
-    CFStringRef charStr = NULL;
-    
-    /* Generate table of keycodes and characters. */
-    if (charToCodeDict == NULL) {
-        size_t i;
-        charToCodeDict = CFDictionaryCreateMutable(kCFAllocatorDefault,
-                                                   128,
-                                                   &kCFCopyStringDictionaryKeyCallBacks,
-                                                   NULL);
-        if (charToCodeDict == NULL) return UINT16_MAX;
-        
-        /* Loop through every keycode (0 - 127) to find its current mapping. */
-        for (i = 0; i < 128; ++i) {
-            CFStringRef string = createStringForKey((CGKeyCode)i);
-            if (string != NULL) {
-                CFDictionaryAddValue(charToCodeDict, string, (const void *)i);
-                CFRelease(string);
-            }
-        }
-    }
-    
-    charStr = CFStringCreateWithCharacters(kCFAllocatorDefault, &character, 1);
-    
-    /* Our values may be NULL (0), so we need to use this function. */
-    if (!CFDictionaryGetValueIfPresent(charToCodeDict,
-                                       charStr,
-                                       (const void **)&code)) {
-        code = UINT16_MAX;
-    }
-    
-    CFRelease(charStr);
-    return code;
+    return sequence_map.count(key_char)?sequence_map.at(key_char):-1;
 }
 void XInputSimulatorImplMacOs::keySequence(const std::string &sequence)
 {
-    std::cout << "key seq: " << sequence << std::endl;
-    
-    for(const char c : sequence) {
-        std::cout << "cahr: " << c << std::endl;
+    const char* lower_keys = "1234567890abcdefghijklmnopqrstuvwxyz`-=[]\\;',./";
+    const std::string upper_keys = "!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ~_+{}|:\"<>?";
+   
+    for(char c : sequence) {
+	bool shift = false;
+	if(upper_keys.find(c)!=-1){
+		c = lower_keys[upper_keys.find(c)];
+		shift = true;
+	}
+
         int keyCode = this->charToKeyCode(c);
-        std::cout << "key code: " << keyCode << std::endl;
-        this->keyClick(keyCode);
-        std::cout << std::endl;
+        shift?this->keyClickShift(keyCode):keyClick(keyCode);
+
     }
 
     //throw NotImplementedException();
