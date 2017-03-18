@@ -25,3 +25,6 @@
 *.directory
 build*
 *build*
+
+# Other junk
+*.swp
