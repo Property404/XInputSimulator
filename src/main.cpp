@@ -31,20 +31,110 @@
 
 using namespace std;
 
+// Effectively `sleep(1)`
 void waitABit();
+// Do a little dance - Show off what XInputSimulator can do
 void showOff();
-void displayHelp();
+// Show commands and such
+void displayHelp(std::string command="");
 
+
+// Arg Utility (pure gold, lol)
+struct AU {
+	string arg;
+	// setArgc and setArgv must be called before other methods can be used
+	void setArgc(int c){
+		this->argc = c;
+	}
+	void setArgv(char** argv){
+		this->argv = argv;
+	}
+
+	// Set arg to next argument in argv
+	int forwardArgument(){
+		static int pos = 1;
+		if (pos<this->argc){
+			arg = this->argv[pos];
+			pos++;
+			return 1;
+		}
+		return 0;
+	}
+	// Call if and only if the next argument is necessary
+	void forwardNeededArgument(std::string command=""){
+		forwardArgument()?0:(displayHelp(command), exit(1),1);
+	}
+private:
+	int argc;
+	char** argv;
+};
+
+// Let's do the do
 int main(int argc, char** argv){
-	showOff();
+	
+	// Argument flags
+	XInputSimulator &sim = XInputSimulator::getInstance();
+
+	// Set up argument utility
+	AU au = AU();
+	au.setArgc(argc);
+	au.setArgv(argv);
+	au.forwardNeededArgument();
+
+	// Here we parse the arguments - seems rather self explanatory
+	if(au.arg=="mouse"){
+		au.forwardNeededArgument("mouse");
+		if(au.arg=="moveto"){
+			au.forwardNeededArgument("mouse");
+			int x = atoi(au.arg.c_str());
+			au.forwardNeededArgument("mouse");
+			int y = atoi(au.arg.c_str());
+			sim.mouseMoveTo(x,y);
+			exit(0);
+		}else if(au.arg=="moverelative"){
+			au.forwardNeededArgument("mouse");
+			int x = atoi(au.arg.c_str());
+			au.forwardNeededArgument("mouse");
+			int y = atoi(au.arg.c_str());
+			sim.mouseMoveRelative(x,y);
+			exit(0);
+		}else if(au.arg=="down"){
+			sim.mouseDown((au.forwardNeededArgument("mouse down"), atoi(
+			au.arg.c_str())));		
+		}else if(au.arg=="up"){
+			sim.mouseUp((au.forwardNeededArgument("mouse up"), atoi(
+			au.arg.c_str())));
+		}else{
+			displayHelp("mouse");
+			exit(1);
+		}
+	}else if(au.arg=="key"){
+		au.forwardNeededArgument("key");
+		if(au.arg=="click"){
+			au.forwardNeededArgument("key");
+			sim.keyClick(sim.charToKeyCode(au.arg[0]));
+		}else if(au.arg=="sequence"){
+			au.forwardNeededArgument("key");
+			sim.keySequence(au.arg);
+		}else{
+			displayHelp("key");
+			exit(1);
+		}
+	}else if(au.arg=="showoff"){
+		showOff();
+		exit(0);
+	}else{
+		displayHelp();
+		exit(1);
+	}
 	return 0;
 }
-void displayHelp(){
-	cout << "This is a help message(it's very helpful)\n";
+void displayHelp(std::string command){
+	cout << "This is a help message on "<<command<<"(it's very helpful)\n";
 }
 void showOff()
 {
-    cout << "Hello World!" << endl;
+    cout << "What XIS can do for you:" << endl;
 
     XInputSimulator &sim = XInputSimulator::getInstance();
 
@@ -88,10 +178,7 @@ void showOff()
 
 void waitABit()
 {
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-#ifdef __unix__
-	sleep(1);
-#elif __APPLE__
+#if defined(__unix__) || defined(__APPLE__)
 	sleep(1);
 #elif _WIN32
 	Sleep(1000);

@@ -37,5 +37,5 @@ project(XInputSimulator)
 		xinputsimulatorimpl.h
 		${PLATFORM_SOURCE_FILES})
 
-add_executable(XInputSimulator ${SOURCE_FILES})
-target_link_libraries(XInputSimulator ${EXTRA_LIBS} )
+add_executable(xis ${SOURCE_FILES})
+target_link_libraries(xis ${EXTRA_LIBS} )
