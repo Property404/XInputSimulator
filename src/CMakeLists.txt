@@ -6,7 +6,7 @@ project(XInputSimulator)
     	find_library(X_11 X11)
     	find_library(X_TST Xtst)
     	set(EXTRA_LIBS ${X_11} ${X_TST})
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -I/usr/local/include")
 		set(PLATFORM_SOURCE_FILES xinputsimulatorimplunix.cpp xinputsimulatorimplunix.h)
     endif(UNIX AND NOT APPLE)
 
